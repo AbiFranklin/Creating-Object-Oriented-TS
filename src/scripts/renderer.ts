@@ -8,6 +8,7 @@ export class Renderer {
     //     this.viewTemplate.innerHTML = html;
     // }
 
+    //private constructor prevents creating new instances
     private constructor() { }
 
     // static way
