@@ -24,6 +24,13 @@ var SavingsAccount = /** @class */ (function (_super) {
         }, 6000);
         return _this;
     }
+    SavingsAccount.prototype.getAccountInfo = function () {
+        return {};
+    };
+    SavingsAccount.prototype.deposit = function (amount) {
+        var newAmount = amount + (amount * (this._interestRate / 100));
+        this.balance += newAmount;
+    };
     SavingsAccount.prototype.addInterest = function () {
         this.balance = this.balance + (this.balance * (this._interestRate / 100));
     };

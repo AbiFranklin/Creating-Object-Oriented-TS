@@ -5,7 +5,7 @@ var AccountList = /** @class */ (function () {
     AccountList.prototype.add = function (account) {
         this._accountList.push(account);
     };
-    AccountList.prototype.getAccount = function () {
+    AccountList.prototype.getAccounts = function () {
         return this._accountList;
     };
     return AccountList;

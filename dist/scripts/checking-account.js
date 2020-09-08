@@ -12,11 +12,17 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import { BankAccount } from "./bank-account";
+import { AccountType } from "./enums";
 var CheckingAccount = /** @class */ (function (_super) {
     __extends(CheckingAccount, _super);
-    function CheckingAccount(accountSettings) {
-        return _super.call(this, accountSettings) || this;
+    function CheckingAccount() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.accountType = AccountType.Checking;
+        return _this;
     }
+    CheckingAccount.prototype.getAccountInfo = function () {
+        return {};
+    };
     return CheckingAccount;
 }(BankAccount));
 export { CheckingAccount };

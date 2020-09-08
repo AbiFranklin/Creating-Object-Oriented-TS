@@ -1,7 +1,9 @@
 import { BankAccount } from "./bank-account";
+import { AccountType } from "./enums";
 
 export class CheckingAccount extends BankAccount {
-  constructor(accountSettings: any) {
-    super(accountSettings);
+  accountType = AccountType.Checking;
+  getAccountInfo() {
+      return {};
   }
 }

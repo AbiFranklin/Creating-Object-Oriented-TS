@@ -1,10 +1,10 @@
 ﻿import { AccountType } from "./enums";
 
 export abstract class BankAccount {
-  balance = 0; // field
+  private _balance = 0; 
   id: number;
   title: string;
-  accountType: AccountType
+  abstract accountType: AccountType
 
   constructor(accountSettings: any) {
       this.id = accountSettings.id;
@@ -13,26 +13,24 @@ export abstract class BankAccount {
   }
 
   deposit(amount: number) {
-    // function
-    if (amount !== NaN) {
-      this.balance += amount;
-    } else {
-      alert("Value must be a number");
-    }
+    this.balance += amount;
   }
 
   withdrawal(amount: number) {
-    // function
-    if (amount !== NaN) {
-      if (amount > this.balance) {
-        alert("Insufficient Funds: $35 Overdraft charge applied.");
-        amount += 35;
-        this.balance -= amount;
-      } else {
-        this.balance -= amount;
-      }
+    this.balance -= amount;
+  }
+
+  abstract getAccountInfo(): any;
+
+  get balace() {
+    return this._balance;
+  }
+
+  set balance(val: number) {
+    if (val >= 0) {
+      this._balance = val;
     } else {
-      alert("Value must be a number");
+      throw Error('Balance cannot be negative!')
     }
   }
 }

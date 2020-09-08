@@ -7,7 +7,7 @@ export class AccountList {
         this._accountList.push(account);
     }
 
-    getAccount(): BankAccount[] {
+    getAccounts(): BankAccount[] {
         return this._accountList;
     }
 }

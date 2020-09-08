@@ -1,16 +1,13 @@
 var Renderer = /** @class */ (function () {
-    // instance way
-    // constructor(private viewTemplate: HTMLDivElement) {
-    //     this.viewTemplate.innerHTML = '<h2>Welcome to Acme Bank!</h2><br /><h5>Your Accounts:</h5><br />';
-    // }
-    // render(html: string) {
-    //     this.viewTemplate.innerHTML = html;
-    // }
-    //private constructor prevents creating new instances
-    function Renderer() {
+    function Renderer(viewTemplate) {
+        this.viewTemplate = viewTemplate;
+        this.viewTemplate.innerHTML = '<h2>Welcome to Acme Bank!</h2><br /><h5>Your Accounts:</h5><br />';
     }
-    Renderer.render = function (html) {
-        Renderer.viewTemplate.innerHTML = html;
+    Renderer.prototype.render = function (html) {
+        this.viewTemplate.innerHTML = html;
+    };
+    Renderer.prototype.renderError = function (message) {
+        this.viewTemplate.innerHTML += "<br /><br /><div class=\"alert alert-danger\">" + message + "</div>";
     };
     return Renderer;
 }());
