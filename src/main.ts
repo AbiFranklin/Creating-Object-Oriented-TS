@@ -1,35 +1,50 @@
-// #### Create object using object literal
-const objLiteral = {
-    balance: 500
-};
+import { CheckingAccount } from './scripts/checking-account';
+import { Renderer } from './scripts/renderer';
 
-// #### Create object using a class
-class ClassObject {
-    balance = 1000;
+class Main {
+    checkingAccount: CheckingAccount;
+
+    constructor(/* private renderer: Renderer */) {
+        // Create CheckingAccount instance
+        this.checkingAccount = new CheckingAccount('John Doe Checking');
+        this.renderAccount();
+    }
+
+    renderAccount() {
+        const html = `
+                <h3>Checking Account</h3>
+                <br />
+                <span class="label">Owner:</span> ${this.checkingAccount.title}
+                <br />
+                <span class="label">Balance:</span> $${this.checkingAccount.balance.toFixed(2)}
+                <br /><br />
+                $<input type="text" id="depositWithdrawalAmount">&nbsp;&nbsp;
+                <button onclick="main.depositWithDrawal(true)">Deposit</button>&nbsp;
+                <button onclick="main.depositWithDrawal(false)">Withdrawal</button>&nbsp;
+            `;
+        Renderer.render(html)
+    }
+
+    depositWithDrawal(deposit: boolean) {
+        let amountInput: HTMLInputElement = document.querySelector('#depositWithdrawalAmount');
+        let amount = +amountInput.value;
+        if (deposit) {
+            this.checkingAccount.deposit(amount);
+        }
+        else {
+            this.checkingAccount.withdrawal(amount);
+        }
+        this.renderAccount();
+
+    }
 }
-const classObj = new ClassObject();
 
-// #### Create object using a function
-function FunctionObject() {
-    this.balance = 9000;
-}
-const functionObj = new FunctionObject();
+// Create main object and add handlers for it
+// const renderer = new Renderer(document.querySelector('#viewTemplate'));
+Renderer.viewTemplate = document.querySelector('#viewTemplate');
+const main = new Main();
 
-// #### Create object using Object.create()
-const objCreate = Object.create(objLiteral);
-
-const render = function() { 
-    const total = objLiteral.balance + classObj.balance + functionObj.balance + objCreate.balance;
-    document.querySelector('#viewTemplate').innerHTML = `
-        <h2>Welcome to Acme Bank!</h2><br /><h5>Your account balances:</h5><br />
-        Object Literal Object Balance: $${objLiteral.balance}
-        <br />
-        Class Object Balance: $${classObj.balance}
-        <br />
-        Function Constructor Object Balance: $${functionObj.balance}
-        <br />
-        Object.create() Object Balance: $${objCreate.balance}
-        <br /><br />
-        <strong>Total:</strong> $${total}
-    `;
-}();
+// Quick and easy way to expose a global API that can hook to the Main object
+// so that we can get to it from click and events and others.
+// Yes, there are other ways but that's not the focus of this demo
+(<any>window).main = main;
