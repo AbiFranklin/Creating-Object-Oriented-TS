@@ -12,10 +12,22 @@ export class CheckingAccount {
     }
 
     deposit(amount: number) {
+        if (amount > 0) {
         this.balance += amount
+        } else {
+            alert('Deposits may not be negative.')
+        }
     }
 
     withdrawl(amount: number) {
+        if (amount < this.balance) {
+            if (amount > 0) {
         this.balance -= amount
+            } else {
+                alert('Withdrawl amount may not be negative.')
+            }
+        } else {
+            alert('Insufficiant Funds')
+        }
     }
 }
